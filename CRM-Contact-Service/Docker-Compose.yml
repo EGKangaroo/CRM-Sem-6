@@ -1,0 +1,31 @@
+services:
+    pkg:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        container_name: contactservice
+        ports:
+            - "0.0.0.0:9001:9001"
+        depends_on:
+            - db
+        networks: 
+            - crm-network
+    db:
+        image: "mcr.microsoft.com/mssql/server"
+        volumes:
+          - sqlvolume:/var/opt/mssql
+
+        environment:
+            SA_PASSWORD: "Your_password123"
+            ACCEPT_EULA: "Y"
+        ports:
+            - "0.0.0.0:1533:1533"
+        networks: 
+            - crm-network
+
+volumes:
+  sqlvolume:
+
+networks:
+    crm-network:
+        external: true

@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+    pkg:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: crm-gateway
+        ports:
+            - "0.0.0.0:9100:9100"
+        networks:
+            - crm-network
+
+networks:
+    crm-network:
+        external: true
